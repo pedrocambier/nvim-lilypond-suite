@@ -193,6 +193,7 @@ end
 
 local function quickplayerGetTempo(sel)
   local from_top = Utils.extract_from_sel({0, 1, 1, 0}, vim.fn.getpos("'<"))
+	local to_bottom = Utils.extract_from_sel(vim.fn.getpos("'>"), {0, -1, -1, 0})
 
   local function extractTempo(source)
     local tempo = source:match([[.*%ptempo%s+(%d+%s*%=%s*%d+)]]) or
@@ -202,9 +203,11 @@ local function quickplayerGetTempo(sel)
     return "\\tempo " .. tempo
   end
 
-  if not (string.find(sel, "%ptempo%s") or string.find(from_top, "%ptempo%s")) then
+  if not (string.find(sel, "%ptempo%s") or string.find(from_top, "%ptempo%s") or string.find(to_bottom, "%ptempo%s")) then
     return ''
-  else
+  elseif not (string.find(from_top, "%ptempo%s")) then
+		return extractTempo(to_bottom)
+	else
     return extractTempo(from_top)
   end
 end
