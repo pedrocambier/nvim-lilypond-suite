@@ -166,6 +166,31 @@ local function quickplayerInputType(sel)
   end
 end
 
+local function quickplayerPitchesLanguage(sel)
+	local from_top = Utils.extract_from_sel({ 0, 1, 1, 0 }, vim.fn.getpos("'<"))
+
+	local function getLanguageFromSource(source)
+		local language = source:match(".*(%planguage%s+\"%a*\")")
+		if language then
+			return language
+		else
+			local pitches_language = nvls_options.lilypond.options.pitches_language
+			if (pitches_language ~= "default") then
+				language = "\\language " .. pitches_language
+				return language
+			else
+				return ''
+			end
+		end
+	end
+
+	if(string.find(sel, "%planguage%s+\"%a*\"")) then
+		return ''
+	else
+		return getLanguageFromSource(from_top)
+	end
+end
+
 local function quickplayerGetTempo(sel)
   local from_top = Utils.extract_from_sel({0, 1, 1, 0}, vim.fn.getpos("'<"))
 
@@ -225,11 +250,14 @@ function M.quickplayer()
     Utils.message('Converting to ' .. require('nvls.config').fileInfos().audio_format)
   end
 
+	local language = quickplayerPitchesLanguage(sel)
+
   local input_type = quickplayerInputType(sel)
 
   local tempo = quickplayerGetTempo(sel)
 
   local codeParts = {}
+  table.insert(codeParts, language)
   table.insert(codeParts, "\\score { ")
   table.insert(codeParts, input_type .. " { " .. sel .. " } ")
   table.insert(codeParts, "\\midi { " .. tempo .. " } ")
