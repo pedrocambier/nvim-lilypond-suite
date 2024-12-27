@@ -212,6 +212,23 @@ local function quickplayerGetTempo(sel)
   end
 end
 
+local function quickplayerGetInstrument(sel)
+  local from_top = Utils.extract_from_sel({0, 1, 1, 0}, vim.fn.getpos("'<"))
+	local to_bottom = Utils.extract_from_sel(vim.fn.getpos("'>"), {0, -1, -1, 0})
+
+  local function extractInstrument(source)
+		return source:match(".*[%p%s+](midiInstrument%s*=%s*\"%a*\")")
+  end
+
+  if not (string.find(sel, "[%p%s+]midiInstrument%s") or string.find(from_top, "[%p%s+]midiInstrument%s") or string.find(to_bottom, "[%p%s+]midiInstrument%s")) then
+    return ''
+  elseif not (string.find(from_top, "[%p%s+]midiInstrument%s")) then
+		return extractInstrument(to_bottom)
+	else
+    return extractInstrument(from_top)
+  end
+end
+ 
 local function quickplayerCheckErr(str)
   local function countChar(s, char)
     local count = 0
@@ -259,10 +276,14 @@ function M.quickplayer()
 
   local tempo = quickplayerGetTempo(sel)
 
+  local instrument = quickplayerGetInstrument(sel)
+
   local codeParts = {}
   table.insert(codeParts, language)
   table.insert(codeParts, "\\score { ")
+  table.insert(codeParts, "\\new Staff \\with {" .. instrument .. "} { ")
   table.insert(codeParts, input_type .. " { " .. sel .. " } ")
+  table.insert(codeParts, "}")
   table.insert(codeParts, "\\midi { " .. tempo .. " } ")
   table.insert(codeParts, "}")
   local code = table.concat(codeParts)
