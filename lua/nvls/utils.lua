@@ -83,7 +83,13 @@ function M.concat_flags(flags)
 end
 
 function M.extract_from_sel(_start, _end)
-  local nlines = math.abs(_end[2] - _start[2]) + 1
+	local nlines = 0
+	if(_end[2] == -1) then
+		local total_nlines = #vim.api.nvim_buf_get_lines(0, 0, -1, false)
+		nlines = math.abs(total_nlines - _start[2]) + 1
+	else
+		nlines = math.abs(_end[2] - _start[2]) + 1
+	end
   local sel = vim.api.nvim_buf_get_lines(0, _start[2] - 1, _end[2], false)
 
   if nlines == 1 then
