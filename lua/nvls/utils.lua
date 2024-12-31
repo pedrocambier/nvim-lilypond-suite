@@ -139,7 +139,7 @@ function M.clear_tmp_files()
 	end
 end
 
-function M.change_note_duration(is_increase)
+local function change_note_duration(is_increase)
 	local lin, col = unpack(vim.api.nvim_win_get_cursor(0))
 	local cursor_word = vim.fn.expand('<cWORD>')
 	if (cursor_word == "") then
@@ -210,6 +210,14 @@ function M.change_note_duration(is_increase)
 	end
 
 	vim.api.nvim_buf_set_text(0, lin - 1, col_start_number - 1, lin - 1, col_end_number, { '' .. new_duration .. suffix })
+end
+
+function M.increase_note_duration()
+	change_note_duration(true)
+end
+
+function M.decrease_note_duration()
+	change_note_duration(false)
 end
 
 function M.map(key, cmd)

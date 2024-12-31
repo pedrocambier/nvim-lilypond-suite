@@ -93,8 +93,8 @@ local decrease_note_duration = function()
 	Utils.change_note_duration(false)
 end
 
-map(incr,		":lua<space>increase_note_duration()<cr>")
-map(decr,		":lua<space>decrease_note_duration()<cr>")
+map(incr,		":lua<space>require('nvls.utils').increase_note_duration()<cr>")
+map(decr,		":lua<space>require('nvls.utils').decrease_note_duration()<cr>")
 map(cmp,    "<cmd>LilyCmp<cr>")
 map(view,   "<cmd>Viewer<cr>")
 map(switch, "<C-w>w")
