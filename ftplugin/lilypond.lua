@@ -70,6 +70,8 @@ local ins         = opts.mappings.insert_hyphen
 local add         = opts.mappings.add_hyphen
 local deln        = opts.mappings.del_next_hyphen
 local delp        = opts.mappings.del_prev_hyphen
+local incr				= opts.mappings.increase_duration
+local decr				= opts.mappings.decrease_duration
 
 local write_version = function()
   local v = io.popen('lilypond -v'):read("*a")
@@ -83,6 +85,16 @@ local write_version = function()
   vim.api.nvim_buf_set_lines(0, c[1] - 1, c[1] - 1, true, { v })
 end
 
+local increase_note_duration = function()
+	Utils.change_note_duration(true)
+end
+
+local decrease_note_duration = function()
+	Utils.change_note_duration(false)
+end
+
+map(incr,		":lua<space>increase_note_duration()<cr>")
+map(decr,		":lua<space>decrease_note_duration()<cr>")
 map(cmp,    "<cmd>LilyCmp<cr>")
 map(view,   "<cmd>Viewer<cr>")
 map(switch, "<C-w>w")
