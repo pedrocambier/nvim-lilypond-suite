@@ -15,7 +15,7 @@ local default = {
       del_next_hyphen = "<leader>dh",
       del_prev_hyphen = "<leader>dH",
 			increase_duration = "<C-a>",
-			decrease_duration = "<C-b>",
+			decrease_duration = "<C-x>",
     },
     options = {
       pitches_language = "default",
