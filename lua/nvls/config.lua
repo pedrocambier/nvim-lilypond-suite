@@ -34,6 +34,10 @@ function M.fileInfos()
   elseif vim.bo.filetype == "lilypond" then
     main_folder = nvls_options.lilypond.options.main_folder
     main_file = nvls_options.lilypond.options.main_file
+		local project_folder = nvls_options.lilypond.options.project_folder
+		if(project_folder) then
+			main_folder = Utils.joinpath(vim.fn.expand(project_folder), main_folder)
+		end
     if backend then
       backend = '-dbackend=' .. backend
     end

@@ -27,6 +27,7 @@ local default = {
       include_dir = nil,
       diagnostics = false,
       pdf_viewer = nil,
+			project_folder = nil,
     },
   },
   latex = {
