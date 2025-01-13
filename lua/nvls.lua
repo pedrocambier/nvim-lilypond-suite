@@ -28,6 +28,7 @@ local default = {
       diagnostics = false,
       pdf_viewer = nil,
 			project_folder = nil,
+			output_folder = nil,
     },
   },
   latex = {
