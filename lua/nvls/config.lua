@@ -3,6 +3,10 @@ local nvls_options = require('nvls').get_nvls_options()
 
 local M = {}
 
+function M.reload_options()
+	nvls_options = require('nvls').get_nvls_options()
+end
+
 function M.fileInfos()
   local C = {}
   local audio_format = nvls_options.player.options.audio_format

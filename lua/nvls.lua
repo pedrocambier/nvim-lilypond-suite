@@ -135,6 +135,10 @@ end
 M.merge_options = function(opts)
 	opts = opts or {}
 	nvls_options = vim.tbl_deep_extend('keep', opts, nvls_options)
+	require('nvls.hyphenate').reload_options()
+	require('nvls.config').reload_options()
+	require('nvls.player').reload_options()
+	require('nvls.viewer').reload_options()
 end
 
 function M.syntax()

@@ -5,6 +5,10 @@ local nvls_hyphlang, lang
 
 local M = {}
 
+function M.reload_options()
+	opts = require('nvls').get_nvls_options()
+end
+
 function M.quickLangInput()
   local value = nvls_hyphlang or lyopts.hyphenation_language
   vim.ui.input({
