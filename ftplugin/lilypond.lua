@@ -85,14 +85,6 @@ local write_version = function()
   vim.api.nvim_buf_set_lines(0, c[1] - 1, c[1] - 1, true, { v })
 end
 
-local increase_note_duration = function()
-	Utils.change_note_duration(true)
-end
-
-local decrease_note_duration = function()
-	Utils.change_note_duration(false)
-end
-
 map(incr,		":lua<space>require('nvls.utils').increase_note_duration()<cr>")
 map(decr,		":lua<space>require('nvls.utils').decrease_note_duration()<cr>")
 map(cmp,    "<cmd>LilyCmp<cr>")

@@ -132,6 +132,11 @@ M.setup = function(opts)
   M.syntax()
 end
 
+M.merge_options = function(opts)
+	opts = opts or {}
+	nvls_options = vim.tbl_deep_extend('keep', opts, nvls_options)
+end
+
 function M.syntax()
   local hi = default_hi
   if nvls_options and nvls_options.lilypond and nvls_options.lilypond.highlights then
