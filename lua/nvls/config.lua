@@ -52,10 +52,10 @@ function M.fileInfos()
     main = Utils.shellescape(main_path, true)
   end
 
-	local output_audiofile = main
+	local output_file = main
 	if Utils.exists(output_folder) then
-		output_audiofile = Utils.joinpath(vim.fn.expand(output_folder), main_file)
-    output_audiofile = Utils.shellescape(output_audiofile, true)
+		output_file = Utils.joinpath(vim.fn.expand(output_folder), main_file)
+    output_file = Utils.shellescape(output_file, true)
 	end
 
   local name = Utils.remove_extension(main)
@@ -66,8 +66,8 @@ function M.fileInfos()
   end
 
   C.name             = Utils.remove_path(name)
-  C.pdf              = Utils.change_extension(main, "pdf")
-  C.audio            = Utils.change_extension(output_audiofile, audio_format)
+  C.pdf              = Utils.change_extension(output_file, "pdf")
+  C.audio            = Utils.change_extension(output_file, audio_format)
   C.audio_format     = audio_format
   C.midi             = Utils.change_extension(main, "midi")
   C.midi_synth       = midi_synth
