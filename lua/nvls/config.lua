@@ -69,7 +69,7 @@ function M.fileInfos()
   C.pdf              = Utils.change_extension(output_file, "pdf")
   C.audio            = Utils.change_extension(output_file, audio_format)
   C.audio_format     = audio_format
-  C.midi             = Utils.change_extension(main, "midi")
+  C.midi             = Utils.change_extension(output_file, "midi")
   C.midi_synth       = midi_synth
   C.fluidsynth_flags = Utils.concat_flags(nvls_options.player.options.fluidsynth_flags)
   C.timidity_flags   = Utils.concat_flags(nvls_options.player.options.timidity_flags)
